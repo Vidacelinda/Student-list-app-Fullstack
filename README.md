@@ -1,8 +1,7 @@
-Carlo Leiva			
-COP 4808 Full stack web development
-3/06/23				
-Spring 2023
-
+#Carlo Leiva			
+#COP 4808 Full stack web development
+#3/06/23				
+#Spring 2023
 
 - GET: display a single student by ID - displayStudent.html
 Get single student record page using GET request
@@ -111,7 +110,7 @@ In the script (javaScript)  the “recordID” is concatenated with the URL link
 
 
 
-BOOT STRAP
+-BOOT STRAP
 Use a navigation feature that boot strap has to make the app visually pleasing.
  
  <img width="266" alt="image" src="https://user-images.githubusercontent.com/87499194/223899530-a315dd45-0a8a-48c1-b258-7d2fcc5c0565.png">
