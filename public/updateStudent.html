@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>update student</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!-- bootstrap library link -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+
+<!-- Boot strap Navbar -->
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">Student APP</a>
+      </div>
+      <ul class="nav navbar-nav">
+        <li><a href="/">HOME</a></li>
+        <li><a href="addStudent.html">ADD</a></li>
+        <li class="active"><a href="updateStudent.html">Update</a></li>
+        <li><a href="displayStudent.html">View</a></li>
+        <li><a href="deleteStudent.html">Delete</a></li>
+        <li><a href="listStudents.html">List</a></li>
+      </ul>
+    </div>
+</nav>
+
+<h1>Update Student </h1>
+
+<label for="recordID">Record ID:</label>
+<input type="text" id="recordID" name="recordID"><br><br>
+
+<label for="first_name">First Name:</label>
+<input type="text" id="first_name" name="first_name"><br><br>
+
+<label for="last_name">Last Name:</label>
+<input type="text" id="last_name" name="last_name"><br><br>
+
+<label for="gpa">gpa:</label>
+<input type="text" id="gpa" name="gpa"><br><br>
+
+<label for="enrolled">enrolled:</label>
+<input type="text" id="enrolled" name="enrolled"><br><br>
+
+
+<button onclick="updateStudent()">Update Student</button>
+<br><br>
+<div id="mydiv" name="mydiv"></div>
+
+<script>
+    function updateStudent(){
+        var recordID = document.getElementById("recordID").value;
+        console.log('Searching for record ID ' + recordID);
+
+        //set 
+        var first_name_val=$("#first_name").val();
+            var last_name_val=$("#last_name").val();
+            var gpa_val=$("#gpa").val();
+            var enrolled_val=$("#enrolled").val(); 
+        $.ajax({
+            url: "http://localhost:5678/students/"+recordID,
+            type:"put",
+            data:{
+                first_name:first_name_val,
+                last_name:last_name_val,
+                gpa:gpa_val,
+                enrolled:enrolled_val
+            },
+            success: function(response) {//since resoponse is reciveing data in JSON format thus convert it to javascript
+                $("#mydiv").text(response.message);
+            },
+            error: function(xhr){
+                $("#mydiv").text("Error : Cannot be updated");
+            }
+        });
+    }
+</script>
+
+</body>
+</html>

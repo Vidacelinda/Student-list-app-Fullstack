@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>getStudent</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!-- bootstrap link -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+
+<!-- Boot strap Navbar -->
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">Student APP</a>
+      </div>
+      <ul class="nav navbar-nav">
+        <li><a href="/">HOME</a></li>
+        <li><a href="addStudent.html">ADD</a></li>
+        <li><a href="updateStudent.html">Update</a></li>
+        <li class="active"><a href="displayStudent.html">View</a></li>
+        <li><a href="deleteStudent.html">Delete</a></li>
+        <li><a href="listStudents.html">List</a></li>
+      </ul>
+    </div>
+</nav>
+
+<h1>Find Student's Record</h1>
+
+<label for="recordID">Record ID:</label>
+<input type="text" id="recordID" name="recordID"><br><br>
+<button onclick="sendGetStudent()">Get student</button>
+<br><br>
+<div id="mydiv" name="mydiv"></div>
+
+<script>
+    function sendGetStudent(){
+        var recordID = document.getElementById("recordID").value;
+        console.log('Searching for record ID ' + recordID);
+        $.ajax({
+            url: "http://localhost:5678/students/"+recordID,
+            type:"get",
+            success: function(response) {//since resoponse is reciveing data in JSON format thus convert it to javascript
+                console.log(response)//what is response
+                var objJSON=JSON.parse(response)
+                //header
+                let text = "<table border='1'><tr><th>Record ID</th><th>First Name</th><th>Last Name</th><th>GPA</th><th>Enrolled</th></tr>"
+                //data retrived for student
+                text += "<tr>"
+                    +"<td>" + objJSON.record_id + "</td>"
+                    +"<td>" + objJSON.first_name + "</td>"
+                    +"<td>" + objJSON.last_name + "</td>"
+                    +"<td>" + objJSON.gpa + "</td>"
+                    +"<td>" + objJSON.enrolled + "</td>"
+                    +"</tr>";
+                text += "</table>" 
+                document.getElementById("mydiv").innerHTML = text;
+
+            },
+            error: function(xhr){
+                $("#mydiv").text('Error: student not found'+xhr);
+            }
+        });
+    }
+</script>
+
+</body>
+</html>
+
+
+<!-- // let text = "<table border='1'><tr><th>Record ID</th><th>First Name</th><th>Last Name</th><th>GPA</th><th>Enrolled</th></tr>"
+    // // text += "<tr>"
+    // //     +"<td>" + students.record_id + "</td>"
+    // //     +"</tr>";
+    // text += "</table>" 
+    // document.getElementById("mydiv").innerHTML = text; -->
