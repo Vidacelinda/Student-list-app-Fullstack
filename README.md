@@ -4,7 +4,7 @@
 ### 3/06/23				
 ### Spring 2023
 
-The student list app enables the creation, addition, updating, and deletion of student records. Its backend functionality relies on POST, PUT, GET, and DELETE requests, while the front end utilizes HTML textboxes, tables, and buttons, as well as a Bootstrap navigation bar to facilitate navigation across the different pages of the application.
+Description: The student list app enables the creation, addition, updating, and deletion of student records. Its backend functionality relies on POST, PUT, GET, and DELETE requests, while the front end utilizes HTML textboxes, tables, and buttons, as well as a Bootstrap navigation bar to facilitate navigation across the different pages of the application.
 
 - GET: display a single student by ID - displayStudent.html
 Get single student record page using GET request
