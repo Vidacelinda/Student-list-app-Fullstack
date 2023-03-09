@@ -2,11 +2,6 @@ Carlo Leiva
 COP 4808 Full stack web development
 3/06/23				
 Spring 2023
-Z#23453901	
-Homework #6
-My GitHub username :   Vidacelinda
-My github link :  https://github.com/Vidacelinda
-Github Repo for Homework 6 :  https://github.com/cop4808-spring-2023-fullstack-web/hw6---nodejs-api-frontend-Vidacelinda
 
 
 - GET: display a single student by ID - displayStudent.html
