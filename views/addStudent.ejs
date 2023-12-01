@@ -32,7 +32,7 @@
 
 <script>
     function sendGetStudent(){
-        //set 
+        //set  (use jQuery to select DOM element and assign it to a var)
         var first_name_val=$("#first_name").val();
         var last_name_val=$("#last_name").val();
         var gpa_val=$("#gpa").val();
@@ -41,6 +41,7 @@
         $.ajax({
             url: "http://localhost:5678/students",
             type:"post",
+            // sends the val to the server with the parameters ex:-> parameter : val
             data :{
                 first_name:first_name_val,
                 last_name:last_name_val,
@@ -48,13 +49,15 @@
                 enrolled:enrolled_val
             },
             success: function(response) {//since resoponse is reciveing data in JSON format thus convert it to javascript
+                // stringify convert  JS -> JSON
                 // console.log("TEST 1: "+ JSON.stringify(response.message))//used for testing 
                 let text=response.message+" - student ID :"+response.record_id
+                //update html element
                 document.getElementById("mydiv").innerHTML = text;
-                
             },
             error: function(xhr){
-                $("#mydiv").text('Error: student not found');
+                
+                $("#mydiv").text('Error: student not added');
             }
         });
     }

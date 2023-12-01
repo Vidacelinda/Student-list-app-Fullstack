@@ -28,11 +28,15 @@
             url: "http://localhost:5678/students/"+recordID,
             type:"get",
             success: function(response) {//since resoponse is reciveing data in JSON format thus convert it to javascript
-                console.log(response)//what is response
+                console.log(response)//response - student info in json
+                //parse JSON -> JS
                 var objJSON=JSON.parse(response)
-                //header
+                // console.log(objJSON+' '+objJSON.record_id+' '+objJSON.first_name)//TEST CONSOLE
+
+                //Create TABLE to display each student
+                //header 
                 let text = "<table border='1'><tr><th>Record ID</th><th>First Name</th><th>Last Name</th><th>GPA</th><th>Enrolled</th></tr>"
-                //data retrived for student
+                //data retrived for student's row and elements to be concatented
                 text += "<tr>"
                     +"<td>" + objJSON.record_id + "</td>"
                     +"<td>" + objJSON.first_name + "</td>"
@@ -40,7 +44,8 @@
                     +"<td>" + objJSON.gpa + "</td>"
                     +"<td>" + objJSON.enrolled + "</td>"
                     +"</tr>";
-                text += "</table>" 
+                text += "</table>"
+                 // Set the innerHTML of the element with ID "mydiv" to the generated table
                 document.getElementById("mydiv").innerHTML = text;
             },
             error: function(xhr){

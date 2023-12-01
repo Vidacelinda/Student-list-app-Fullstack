@@ -24,6 +24,7 @@
 <script>
     function sendGetStudent(){
         var recordID = document.getElementById("recordID").value;
+        // var recordID = $("#recordID").val(); //jquery
         console.log('Searching for record ID ' + recordID);
         $.ajax({
             url: "http://localhost:5678/students/"+recordID,
