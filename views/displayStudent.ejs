@@ -6,28 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>getStudent</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <!-- bootstrap link -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <!-- ejs boot stap navbar template -->
+    <%- include('navbar') %>
 </head>
 
-<!-- Boot strap Navbar -->
-<nav class="navbar navbar-default">
-    <div class="container-fluid">
-      <div class="navbar-header">
-        <a class="navbar-brand" href="#">Student APP</a>
-      </div>
-      <ul class="nav navbar-nav">
-        <li><a href="/">HOME</a></li>
-        <li><a href="addStudent.html">ADD</a></li>
-        <li><a href="updateStudent.html">Update</a></li>
-        <li class="active"><a href="displayStudent.html">View</a></li>
-        <li><a href="deleteStudent.html">Delete</a></li>
-        <li><a href="listStudents.html">List</a></li>
-      </ul>
-    </div>
-</nav>
+
 
 <h1>Find Student's Record</h1>
 
@@ -59,7 +42,6 @@
                     +"</tr>";
                 text += "</table>" 
                 document.getElementById("mydiv").innerHTML = text;
-
             },
             error: function(xhr){
                 $("#mydiv").text('Error: student not found'+xhr);

@@ -11,9 +11,44 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.static('./public'));
 
+// EJS ATTEMPT v
+
+//Set everything for ejs to work bellow
+const ejs=require('ejs');//add requirements for ejs
+app.set('view engine','ejs');//set the engine 
+// app.set('views',__dirname+'/views')// IDK LEARN MORE
+
 app.get('/',function(req,res){//will ignore if there is an idex.html
-  res.send('wellcome to student server ')
+  // OLD : No ejs
+  // res.send('wellcome to student server ')
+  // NEW : with ejs
+  res.render('index');
 })
+
+// Testing add ejs
+app.get('/add',function(req,res){//will ignore if there is an idex.html
+  res.render('addStudent');
+})
+
+app.get('/delete',function(req,res){//will ignore if there is an idex.html
+  res.render('deleteStudent');
+})
+
+app.get('/list',function(req,res){//will ignore if there is an idex.html
+  res.render('listStudents');
+})
+
+app.get('/find',function(req,res){//will ignore if there is an idex.html
+  res.render('displayStudent');
+})
+
+app.get('/update',function(req,res){//will ignore if there is an idex.html
+  res.render('updateStudent');
+})
+
+//EJS ATTMPET ^
+
+
 /**
 description: method for adding a student
 @method: /students

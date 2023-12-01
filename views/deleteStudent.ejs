@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete student</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!-- ejs boot stap navbar template -->
+    <%- include('navbar') %>
+</head>
+
+
+<h1>Delete Student </h1>
+
+<label for="recordID">Record ID:</label>
+<input type="text" id="recordID" name="recordID"><br><br>
+
+<button onclick="sendGetStudent()">Delete Student</button>
+
+<br><br>
+<div id="mydiv" name="mydiv"></div>
+
+<script>
+    function sendGetStudent(){
+        var recordID = document.getElementById("recordID").value;
+        console.log('Searching for record ID ' + recordID);
+        $.ajax({
+            url: "http://localhost:5678/students/"+recordID,
+            type:"delete",
+            success: function(response) {//since resoponse is reciveing data in JSON format thus convert it to javascript
+                $("#mydiv").text(response.message);
+            },
+            error: function(xhr){
+                $("#mydiv").text("Error : Cannot delete student ");
+            }
+        });
+    }
+</script>
+
+</body>
+</html>
