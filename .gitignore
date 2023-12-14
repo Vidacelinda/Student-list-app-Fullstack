@@ -1,0 +1,2 @@
+# Ignore .env file (important API key or DB key)
+.env
