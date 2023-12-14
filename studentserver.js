@@ -1,4 +1,5 @@
 //studentserver.js
+const mongoose = require('mongoose');
 const express = require('express')
 const app = express()
 const bodyParser = require('body-parser');
@@ -11,10 +12,56 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.static('./public'));
 
+// Mongose MONGO DBS ATLAS SET UP
+mongoose.connect("mongodb+srv://carlo:test123@cluster0.olc1ibw.mongodb.net/?retryWrites=true&w=majority")
+
+const studentSchema = new mongoose.Schema({
+  _id: {
+    required: true,
+    type: Number
+  },
+  first_name: {
+    required: true,
+    type: String
+  },
+  last_name: {
+    required: true,
+    type: String
+  },
+  gpa: {
+    required: true,
+    type: String
+  },
+  enrolled: {
+    required: true,
+    type: String
+  }
+})
+
+const Model=mongoose.model('Data',studentSchema) //creates tabel
+
+// app.post('/students',async function(req,res){
+//   const data =new Model({
+//     _id:req.body._id,
+//     first_name:req.body.first_name,
+//     last_name:req.body.first_name,
+//     gpa:req.body.gpa,
+//     enrolled: req.body.enrolled,
+//   })
+//   await data.save()
+//   return res.staus(201).send(data);
+// })
+
+
+
+
+
+
 // EJS ATTEMPT v
 
 //Set everything for ejs to work bellow
 const ejs=require('ejs');//add requirements for ejs
+// const { default: mongoose } = require('mongoose');
 app.set('view engine','ejs');//set the engine 
 // app.set('views',__dirname+'/views')// IDK LEARN MORE
 
@@ -61,30 +108,41 @@ description: method for adding a student
 */
 //post makes a student 
 //DONE
-app.post('/students', function(req, res) {
-  var record_id = new Date().getTime();
+app.post('/students',async function(req, res) {
+  const data =new Model({
+    _id:req.body._id,
+    first_name:req.body.first_name,
+    last_name:req.body.last_name,
+    gpa:req.body.gpa,
+    enrolled: req.body.enrolled,
+  })
+  await data.save();
+  return res.status(201).send(data);
 
-  var obj = {};
-  obj.record_id = record_id;
-  obj.first_name = req.body.first_name;
-  obj.last_name = req.body.last_name;
-  obj.gpa = req.body.gpa;
-  obj.enrolled = req.body.enrolled;
 
-  var str = JSON.stringify(obj, null, 2);
-  //writes new file as jason
-  fs.writeFile("students/" + record_id + ".json", str, function(err) {
-    var rsp_obj = {};
-    if(err) {
-      rsp_obj.record_id = -1;
-      rsp_obj.message = 'error - unable to create resource';
-      return res.status(200).send(rsp_obj);
-    } else {
-      rsp_obj.record_id = record_id;
-      rsp_obj.message = 'successfully created';
-      return res.status(201).send(rsp_obj);
-    }
-  }); //end writeFile method
+  // var record_id = new Date().getTime();
+
+  // var obj = {};
+  // obj.record_id = record_id;
+  // obj.first_name = req.body.first_name;
+  // obj.last_name = req.body.last_name;
+  // obj.gpa = req.body.gpa;
+  // obj.enrolled = req.body.enrolled;
+
+  // var str = JSON.stringify(obj, null, 2);
+  // //writes new file as jason
+  // fs.writeFile("students/" + record_id + ".json", str, function(err) {
+  //   var rsp_obj = {};
+  //   if(err) {
+  //     rsp_obj.record_id = -1;
+  //     rsp_obj.message = 'error - unable to create resource';
+  //     return res.status(200).send(rsp_obj);
+  //   } else {
+  //     rsp_obj.record_id = record_id;
+  //     rsp_obj.message = 'successfully created';
+  //     return res.status(201).send(rsp_obj);
+  //   }
+  // }); //end writeFile method
   
 }); //end post method
 
@@ -95,19 +153,24 @@ description: method for adding a student
 @param: record_id
 */
 //get one sturdent records
-app.get('/students/:record_id', function(req, res) {
-  var record_id = req.params.record_id;
+app.get('/students/:record_id',async function(req, res) {
+  let data=await Model.findOne({_id : req.params.record_id})//
+  console.log(data)
+  return res.status(200).send(data);
 
-  fs.readFile("students/" + record_id + ".json", "utf8", function(err, data) {
-    if (err) {
-      var rsp_obj = {};
-      rsp_obj.record_id = record_id;
-      rsp_obj.message = 'error - resource not found';
-      return res.status(404).send(rsp_obj);
-    } else {
-      return res.status(200).send(data);
-    }
-  });
+
+  // var record_id = req.params.record_id;
+
+  // fs.readFile("students/" + record_id + ".json", "utf8", function(err, data) {
+  //   if (err) {
+  //     var rsp_obj = {};
+  //     rsp_obj.record_id = record_id;
+  //     rsp_obj.message = 'error - resource not found';
+  //     return res.status(404).send(rsp_obj);
+  //   } else {
+  //     return res.status(200).send(data);
+  //   }
+  // });
 }); 
 
 /**
@@ -120,6 +183,8 @@ app.get('/students/:record_id', function(req, res) {
 * @param {object} res - An object representing the HTTP response to send once all files have been processed.
 * @returns {void}
 */
+
+
 //used in  app.get('/students/:record_id'...
 function readFiles(files,arr,res) {
   fname = files.pop();
@@ -152,17 +217,20 @@ description: Handles GET requests for retrieving all student records.
 @param: enrolled
 */
 //gets all students info records and displays it a json
-app.get('/students', function(req, res) {
-  var obj = {};
-  var arr = [];
-  filesread = 0;
+app.get('/students',async function(req, res) {
+  let data=await Model.find()//gets all 
+  return res.status(200).send(data);//
 
-  glob("students/*.json", null, function (err, files) {
-    if (err) {
-      return res.status(500).send({"message":"error - internal server error"});
-    }
-    readFiles(files,[],res);
-  });
+  // var obj = {};
+  // var arr = [];
+  // filesread = 0;
+
+  // glob("students/*.json", null, function (err, files) {
+  //   if (err) {
+  //     return res.status(500).send({"message":"error - internal server error"});
+  //   }
+  //   readFiles(files,[],res);
+  // });
 
 });
 
@@ -178,45 +246,48 @@ Handles PUT requests to update a student record in the file system.
 @param: enrolled
 */
 //DONE
-app.put('/students/:record_id', function(req, res) {
-  var record_id = req.params.record_id;
-  var fname = "students/" + record_id + ".json";
-  var rsp_obj = {};
-  var obj = {};
+app.put('/students/:record_id',async function(req, res) {
+  let data=await Model.findOne({_id : req.params.record_id})//
+  console.log(data)
+  return res.status(200).send(data);
 
-  obj.record_id = record_id;
-  obj.first_name = req.body.first_name;
-  obj.last_name = req.body.last_name;
-  obj.gpa = req.body.gpa;
-  obj.enrolled = req.body.enrolled;
+  // var record_id = req.params.record_id;
+  // var fname = "students/" + record_id + ".json";
+  // var rsp_obj = {};
+  // var obj = {};
 
-  var str = JSON.stringify(obj, null, 2);
+  // obj.record_id = record_id;
+  // obj.first_name = req.body.first_name;
+  // obj.last_name = req.body.last_name;
+  // obj.gpa = req.body.gpa;
+  // obj.enrolled = req.body.enrolled;
 
-  //check if file exists
-  fs.stat(fname, function(err) {
-    if(err == null) {
+  // var str = JSON.stringify(obj, null, 2);
 
-      //file exists
-      fs.writeFile("students/" + record_id + ".json", str, function(err) {
-        var rsp_obj = {};
-        if(err) {
-          rsp_obj.record_id = record_id;
-          rsp_obj.message = 'error - unable to update resource';
-          return res.status(200).send(rsp_obj);
-        } else {
-          rsp_obj.record_id = record_id;
-          rsp_obj.message = 'successfully updated';
-          return res.status(201).send(rsp_obj);
-        }
-      });
+  // //check if file exists
+  // fs.stat(fname, function(err) {
+  //   if(err == null) {
+
+  //     //file exists
+  //     fs.writeFile("students/" + record_id + ".json", str, function(err) {
+  //       var rsp_obj = {};
+  //       if(err) {
+  //         rsp_obj.record_id = record_id;
+  //         rsp_obj.message = 'error - unable to update resource';
+  //         return res.status(200).send(rsp_obj);
+  //       } else {
+  //         rsp_obj.record_id = record_id;
+  //         rsp_obj.message = 'successfully updated';
+  //         return res.status(201).send(rsp_obj);
+  //       }
+  //     });
       
-    } else {
-      rsp_obj.record_id = record_id;
-      rsp_obj.message = 'error - resource not found';
-      return res.status(404).send(rsp_obj);
-    }
-
-  });
+  //   } else {
+  //     rsp_obj.record_id = record_id;
+  //     rsp_obj.message = 'error - resource not found';
+  //     return res.status(404).send(rsp_obj);
+  //   }
+  // });
 
 }); //end put method
 
@@ -235,24 +306,32 @@ app.put('/students/:record_id', function(req, res) {
  * delete http://example.com/students/123
  */
 //DONE
-app.delete('/students/:record_id', function(req, res) {
-  var record_id = req.params.record_id;
-  var fname = "students/" + record_id + ".json";
+app.delete('/students/:record_id',async function(req, res) {
+  let data=await Model.deleteOne({_id:req.params.record_id})//gets all
+  var rsp_obj = {};
+  rsp_obj.record_id = req.params.record_id;
+  rsp_obj.message = 'record deleted';
+  return res.status(200).send(rsp_obj);
 
-  fs.unlink(fname, function(err) {
-    var rsp_obj = {};
-    if (err) {
-      rsp_obj.record_id = record_id;
-      rsp_obj.message = 'error - resource not found';
-      return res.status(404).send(rsp_obj);
-    } else {
-      rsp_obj.record_id = record_id;
-      rsp_obj.message = 'record deleted';
-      return res.status(200).send(rsp_obj);
-    }
-  });
+  // var record_id = req.params.record_id;
+  // var fname = "students/" + record_id + ".json";
+
+  // fs.unlink(fname, function(err) {
+  //   var rsp_obj = {};
+  //   if (err) {
+  //     rsp_obj.record_id = record_id;
+  //     rsp_obj.message = 'error - resource not found';
+  //     return res.status(404).send(rsp_obj);
+  //   } else {
+  //     rsp_obj.record_id = record_id;
+  //     rsp_obj.message = 'record deleted';
+  //     return res.status(200).send(rsp_obj);
+  //   }
+  // });
 }); //end delete method
 
 app.listen(port); //start the server
 console.log('Server is running...');
 console.log(`server : http://localhost:${port}`)
+
+

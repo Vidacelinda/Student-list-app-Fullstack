@@ -13,6 +13,9 @@
 
 <h1>Add Student </h1>
 
+<label for="id">id:</label>
+<input type="text" id="id" name="id"><br><br>
+
 <label for="first_name">First Name:</label>
 <input type="text" id="first_name" name="first_name"><br><br>
 
@@ -33,16 +36,19 @@
 <script>
     function sendGetStudent(){
         //set  (use jQuery to select DOM element and assign it to a var)
+        var id=$("#id").val();
         var first_name_val=$("#first_name").val();
         var last_name_val=$("#last_name").val();
         var gpa_val=$("#gpa").val();
         var enrolled_val=$("#enrolled").val();
 
+        // mongodb+srv://carlo:<password>@cluster0.olc1ibw.mongodb.net/?retryWrites=true&w=majority
         $.ajax({
             url: "http://localhost:5678/students",
             type:"post",
             // sends the val to the server with the parameters ex:-> parameter : val
             data :{
+                _id:id, //addad id
                 first_name:first_name_val,
                 last_name:last_name_val,
                 gpa:gpa_val,
@@ -51,7 +57,7 @@
             success: function(response) {//since resoponse is reciveing data in JSON format thus convert it to javascript
                 // stringify convert  JS -> JSON
                 // console.log("TEST 1: "+ JSON.stringify(response.message))//used for testing 
-                let text=response.message+" - student ID :"+response.record_id
+                let text=response.message+" - student ID :"+response._id
                 //update html element
                 document.getElementById("mydiv").innerHTML = text;
             },
