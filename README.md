@@ -1,12 +1,15 @@
 # Student App list 
 ### Carlo Leiva			
-### COP 4808 Full stack web development
 ### 3/06/23				
-### Spring 2023
+
+## NOTE : Mongo db version is a branch of this also the mongo db version is deployed using heroku . This main branch is for local use on local devices so it can be tested by any one if the want to have the databse on there computer locally. For mongo db code look at branch.
+
+## Heroku deployment web :  https://student-list-app.herokuapp.com
+
 
 Description: The student list app enables the creation, addition, updating, and deletion of student records. Its backend functionality relies on POST, PUT, GET, and DELETE requests, while the front end utilizes HTML textboxes, tables, and buttons, as well as a Bootstrap navigation bar to facilitate navigation across the different pages of the application.
 
-( NOTE ): Added mongodb branch and implmented it to mongo db aswell. fully functional mongodb and local db.
+( NOTE ): Added mongodb branch and implmented it to mongo db aswell. fully functional mongodb and local db. for mongo db code look at branch
 
 - GET: display a single student by ID - displayStudent.html
 Get single student record page using GET request
