@@ -1,2 +1,4 @@
-# Ignore .env file (important API key or DB key)
+# Ignore .env file (iportant API key or DB key)
 .env
+# ignore node_modules
+/node_modules
