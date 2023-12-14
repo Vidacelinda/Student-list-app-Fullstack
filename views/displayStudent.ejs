@@ -30,7 +30,7 @@
             success: function(response) {//since resoponse is reciveing data in JSON format thus convert it to javascript
                 console.log(response)//response - student info in json
                 //parse JSON -> JS
-                var objJSON=JSON.parse(response)
+                var objJSON=(response)
                 // console.log(objJSON+' '+objJSON.record_id+' '+objJSON.first_name)//TEST CONSOLE
 
                 //Create TABLE to display each student
@@ -38,7 +38,7 @@
                 let text = "<table border='1'><tr><th>Record ID</th><th>First Name</th><th>Last Name</th><th>GPA</th><th>Enrolled</th></tr>"
                 //data retrived for student's row and elements to be concatented
                 text += "<tr>"
-                    +"<td>" + objJSON.record_id + "</td>"
+                    +"<td>" + objJSON._id + "</td>"
                     +"<td>" + objJSON.first_name + "</td>"
                     +"<td>" + objJSON.last_name + "</td>"
                     +"<td>" + objJSON.gpa + "</td>"
