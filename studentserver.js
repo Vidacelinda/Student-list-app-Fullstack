@@ -12,7 +12,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.static('./public'));
 
-// Mongose MONGO DBS ATLAS SET UP
+// Mongose MONGO DBS ATLAS SET UP vvv
 mongoose.connect("mongodb+srv://carlo:test123@cluster0.olc1ibw.mongodb.net/?retryWrites=true&w=majority")
 
 const studentSchema = new mongoose.Schema({
@@ -53,9 +53,15 @@ const Model=mongoose.model('Data',studentSchema) //creates tabel
 // })
 
 
+// app.get('/students',async function(req, res) {
+//   let data=await Model.find()//gets all 
+//   return res.status(200).send(data);//
+// });
 
 
 
+
+//Mongodb testing ^^^
 
 // EJS ATTEMPT v
 

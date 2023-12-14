@@ -23,19 +23,18 @@
                 url: "http://localhost:5678/students",
                 type:"get",
                 success: function(response){//this is alrady parsed thus use parse
-                    
-                    // var str =JSON.stringify(response.students[0]);//response.students[0].gpa
+                    console.log(response)
                     // document.getElementById("mydiv").innerHTML = str;
 
                     //add headers
                     let text = "<table border='1'><tr><th>Record ID</th><th>First Name</th><th>Last Name</th><th>GPA</th><th>Enrolled</th></tr>"
-                    for (var i = 0; i < response.students.length; i++) {//wehn it says object it means JSON file but for a parse you must focuse on one element ex:age,first_name... etc
+                    for (var i = 0; i < response.length; i++) {//Mongo db length of JSON file given (response) but for a parse you must focuse on one element ex:age,first_name... etc
                         text += "<tr>"
-                            +"<td>" + response.students[i].record_id + "</td>"
-                            +"<td>" + response.students[i].first_name + "</td>"
-                            +"<td>" + response.students[i].last_name + "</td>"
-                            +"<td>"+ response.students[i].gpa + "</td>"
-                            +"<td>"+ response.students[i].enrolled + "</td>"
+                            +"<td>" + response[i]._id + "</td>"
+                            +"<td>" + response[i].first_name + "</td>"
+                            +"<td>" + response[i].last_name + "</td>"
+                            +"<td>"+ response[i].gpa + "</td>"
+                            +"<td>"+ response[i].enrolled + "</td>"
                             +"</tr>";
                     }
                     text += "</table>" 
