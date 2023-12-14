@@ -58,8 +58,34 @@ const Model=mongoose.model('Data',studentSchema) //creates tabel
 //   return res.status(200).send(data);//
 // });
 
+// app.put('/students/:record_id',async function(req, res) {
+//   let data=await Model.findOne({_id : req.params.record_id
+//   })//
+//   console.log("data updated",data);
 
+//   data._id=req.params.record_id
+//   data.first_name=req.body.first_name
+//   data.last_name=req.body.last_name
+//   data.gpa=req.body.gpa
+//   data.enrolled=req.body.enrolled
 
+//   console.log("New updated data",data);
+  
+//   await data.save()//save to mongo database (data)
+
+//   var rsp_obj = {};//for displaying sucessfuly updated
+//   rsp_obj.record_id = req.params.record_id;
+//   rsp_obj.message = 'successfully updated';
+//   return res.status(200).send(rsp_obj);
+// });
+
+// app.delete('/students/:record_id',async function(req, res) {
+//   let data=await Model.deleteOne({_id:req.params.record_id})//gets all
+//   var rsp_obj = {};
+//   rsp_obj.record_id = req.params.record_id;
+//   rsp_obj.message = 'record deleted';
+//   return res.status(200).send(rsp_obj);
+// });
 
 //Mongodb testing ^^^
 
@@ -253,9 +279,24 @@ Handles PUT requests to update a student record in the file system.
 */
 //DONE
 app.put('/students/:record_id',async function(req, res) {
-  let data=await Model.findOne({_id : req.params.record_id})//
-  console.log(data)
-  return res.status(200).send(data);
+  let data=await Model.findOne({_id : req.params.record_id
+  })//
+  console.log("old data \n", data);
+
+  data._id=req.params.record_id
+  data.first_name=req.body.first_name
+  data.last_name=req.body.last_name
+  data.gpa=req.body.gpa
+  data.enrolled=req.body.enrolled
+
+  console.log("New updated data \n",data);
+
+  await data.save()//save to mongo database (data)
+
+  var rsp_obj = {};//for displaying sucessfuly updated
+  rsp_obj.record_id = req.params.record_id;
+  rsp_obj.message = 'successfully updated';
+  return res.status(200).send(rsp_obj);
 
   // var record_id = req.params.record_id;
   // var fname = "students/" + record_id + ".json";
