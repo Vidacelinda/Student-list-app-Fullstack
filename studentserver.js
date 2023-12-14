@@ -1,4 +1,5 @@
 //studentserver.js
+require("dotenv").config();
 const mongoose = require('mongoose');
 const express = require('express')
 const app = express()
@@ -12,8 +13,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.static('./public'));
 
-// Mongose MONGO DBS ATLAS SET UP vvv
-mongoose.connect("mongodb+srv://carlo:test123@cluster0.olc1ibw.mongodb.net/?retryWrites=true&w=majority")
+// Mongose MONGO DBS ATLAS SET UP vvv 
+mongoose.connect(process.env.MONGODB_KEY)
 
 const studentSchema = new mongoose.Schema({
   _id: {
