@@ -2,7 +2,7 @@
 ### Carlo Leiva			
 ### 3/06/23				
 
-## NOTE : Mongo db version is a branch of this also the mongo db version is deployed using heroku . This main branch is for local use on local devices so it can be tested by any one if the want to have the databse on there computer locally. For mongo db code look at branch.
+## NOTE : Mongo db code is a branch which is the version that is deployed using heroku . This main branch is for local use on local devices so it can be tested by any one if the want to have the databse on there computer locally. For mongo db code look at branch.
 
 ## Heroku deployment web :  https://student-list-app.herokuapp.com
 
